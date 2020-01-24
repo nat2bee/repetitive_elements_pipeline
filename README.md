@@ -234,9 +234,11 @@ Publication of reused scripts on an open-access platform, such as Github.
 
 
 ## References
-<sup>1</sup> Robert Hubley, Arian Smit - Institute for Systems Biology. RepeatModeler; Jullien M. Flynn - Cornell University. LTR Pipeline Extensions [http://www.repeatmasker.org/RepeatModeler/] <br/>
-<sup>2</sup> 
-<sup>3</sup> 
-<sup>4</sup> 
-<sup>5</sup> 
+<sup>1</sup> Robert Hubley, Arian Smit - Institute for Systems Biology. RepeatModeler; Jullien M. Flynn - Cornell University. LTR Pipeline Extensions <http://www.repeatmasker.org/RepeatModeler/> <br/>
+<sup>2</sup> Brian J. Haas, TransposonPSI, 2007-2011 <http://transposonpsi.sourceforge.net><br/>
+<sup>3</sup> Ellinghaus, D. et al. LTRharvest, an efficient and flexible software for de novo detection of LTR retrotransposons. BMC bioinformatics 9, 18 (2008)<br/>
+<sup>4</sup> Shen W, Le S, Li Y, Hu F (2016) SeqKit: A Cross-Platform and Ultrafast Toolkit for FASTA/Q File Manipulation. PLoS ONE 11(10): e0163962. https://doi.org/10.1371/journal.pone.0163962<br/>
+<sup>5</sup> Edgar,RC (2010) Search and clustering orders of magnitude faster than BLAST, Bioinformatics 26(19), 2460-2461.
+doi: 10.1093/bioinformatics/btq461<br/>
+<sup>6</sup> Smit, AFA, Hubley, R & Green, P. RepeatMasker Open-4.0. 2013-2015 <http://www.repeatmasker.org>.
 
