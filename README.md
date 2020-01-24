@@ -232,6 +232,11 @@ Proper attribution (i.e., citation of the associated publication; see CITATION.c
 Publication of reused scripts on an open-access platform, such as Github.
 ```
 
-RepeatModeler: Robert Hubley, Arian Smit - Institute for Systems Biology
 
-LTR Pipeline Extensions: Jullien M. Flynn - Cornell University
+## References
+<sup>1</sup> Robert Hubley, Arian Smit - Institute for Systems Biology. RepeatModeler; Jullien M. Flynn - Cornell University. LTR Pipeline Extensions [http://www.repeatmasker.org/RepeatModeler/]
+<sup>2</sup> 
+<sup>3</sup> 
+<sup>4</sup> 
+<sup>5</sup> 
+
