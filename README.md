@@ -234,7 +234,7 @@ Publication of reused scripts on an open-access platform, such as Github.
 
 
 ## References
-<sup>1</sup> Robert Hubley, Arian Smit - Institute for Systems Biology. RepeatModeler; Jullien M. Flynn - Cornell University. LTR Pipeline Extensions [http://www.repeatmasker.org/RepeatModeler/]
+<sup>1</sup> Robert Hubley, Arian Smit - Institute for Systems Biology. RepeatModeler; Jullien M. Flynn - Cornell University. LTR Pipeline Extensions [http://www.repeatmasker.org/RepeatModeler/] <br/>
 <sup>2</sup> 
 <sup>3</sup> 
 <sup>4</sup> 
