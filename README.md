@@ -13,7 +13,7 @@ When we look for repeats in non-model species using only one approach may be pro
 **RepeatModeler** combine different approaches to identify the repeats, like RECON - good at identifying less conserved repetitive elements, RepeatScout - good for finding highly conserved repetitive elements, and Tandem Repeats Finder. 
 
 To build the repeat library with RepeatModeler:
-'''
+```
 - First build the genome database
 $ BuildDatabase -name tdiv -engine ncbi TDIV.fa
 
@@ -21,12 +21,12 @@ $ BuildDatabase -name tdiv -engine ncbi TDIV.fa
 $ RepeatModeler -engine ncbi -pa 11 -database tdiv >& run2.out
 
 >> consensi.fa.classified is the final output
-'''
+```
 
 **TransposonPSI** searchs the genome for LTR retroelements (e.g. gypsy and copia), non-LTR retroelements (e.g. LINE retrotransposon ORFs), DNA transposons (e.g. cryptons and other families), and helitrons. It used PSI-BLAST to identify proteins enconded by transposable elements, thus it is useful to find degenerate elements.
 
 To build the repeat library with TransposonPSI:
-'''
+```
 $ transposonPSI.pl TDIV.fa nuc
 
 - Outputted files will be
@@ -36,12 +36,12 @@ genome.fasta.TPSI.allHits.chains : collinear HSPs are chained together into larg
 genome.fasta.TPSI.allHits.chains.gff3 : the chains in gff3 format
 genome.fasta.TPSI.allHits.chains.bestPerLocus : a DP scan is performed, extracting the best scoring chain per genomic locus.
 genome.fasta.TPSI.allHits.chains.bestPerLocus.gff3 : the best chains in gff3 format.
-'''
+```
 
 **LTRharvest** is optimized to identify LTR retrotransposons based on their characteristic structure. LTRharvest perform multiple filterings: it computes boundary positions, filters for LTR length and distance, and TSD length and motifs. Filters can be turned on/off and the pipeline can be tailored for species-specific need (if known).
 
 To build the repeat library with LTRharvest:
-'''
+```
 - First generate the sufix array
 $ gt suffixerator -db TDIV.fa -indexname TDIV.fsa -tis -suf -lcp -des -ssp -sds -dna
 
@@ -49,56 +49,56 @@ $ gt suffixerator -db TDIV.fa -indexname TDIV.fsa -tis -suf -lcp -des -ssp -sds 
 $ nohup gt ltrharvest -index TDIV.fsa -v -out pred-TDIV.fsa -outinner pred-inner-TDIV.fsa -gff3 pred-TDIV.gff &
 
 - Understand the output
-'Each comment line starts with the comment symbol #. Each non-comment line denotes a LTR retrotransposon prediction with starting and ending positions of the whole LTR retrotransposon, the left LTR instance and the right LTR instance, respectively. Furthermore, for each of these elements, the corresponding element length is reported as well as a percentage similarity of the two LTRs. The last integer of each line denotes the number of the input sequence, the LTR retrotransposon prediction occurs in. The input sequence numbers are counted from 0.'
-'''
+`Each comment line starts with the comment symbol #. Each non-comment line denotes a LTR retrotransposon prediction with starting and ending positions of the whole LTR retrotransposon, the left LTR instance and the right LTR instance, respectively. Furthermore, for each of these elements, the corresponding element length is reported as well as a percentage similarity of the two LTRs. The last integer of each line denotes the number of the input sequence, the LTR retrotransposon prediction occurs in. The input sequence numbers are counted from 0.`
+```
 
 ### 2- Improve and format libraries
 
 **TransposonPSI**
 First get the repeats in fasta format based on the gff output from TransposonPSI. I have used samtools and bedtools for that.
-'''
+```
 - Generate the reference genome index
 $ samtools faidx TDIV.fa
 
 - Run bedtools
 $ bedtools getfasta -fo TDIV.fa.TPSI.allHits.chains.bestPerLocus.fasta -s -fi TDIV.fa -bed TDIV.fa.TPSI.allHits.chains.bestPerLocus.gff3
-'''
+```
 
 Next classify the repeats with RepeatClassifier (included in RepeatModeler). 
-'''
+```
 - First build database
 $ BuildDatabase -name TDIV.fa.TPSI.allHits.chains.bestPerLocus -engine ncbi TDIV.fa.TPSI.allHits.chains.bestPerLocus.fasta
 
 - Then run the program
 $ RepeatClassifier -engine ncbi -stockholm ../tdiv-families.stk -consensi TDIV.fa.TPSI.allHits.chains.bestPerLocus.fasta
-'''
+```
 
 
 Check if sequences of <50 are present in the library. Here I did it using SeqKit<sup>4</sup> (v0.11.0):
-'''
+```
 $ SeqKit_v0.11.0 stats TDIV.fa.TPSI.allHits.chains.bestPerLocus.fasta.classified.filtered
-'''
+```
 If they are, remove them from your library:
-'''
+```
 $ seq -m 50 TDIV.fa.TPSI.allHits.chains.bestPerLocus.fasta.classified > TDIV.fa.TPSI.allHits.chains.bestPerLocus.fasta.classified.filtered
-
+```
 
 **LTRharvest**
 Use LTRdigest (also included in GenomeTools v 1.5.8) to search the LTRharvest library for functional annotation in the LTRs. It search for similarities with protein HMMs at Pfam databases to make the annotation.
 
 I have used two HMM databses in this step:
 1- From Pfam, PF03732 = Retrotrans_gag
-'''
+```
 $ wget http://pfam.xfam.org/family/PF03732/hmm
 $ mv hmm HMM1.hmm 
-'''
+```
 2- From the REPET database 'ProfilesBankForREPET_Pfam27.0_GypsyDB.hmm'
-'''
+```
 $ mv ProfilesBankForREPET_Pfam27.0_GypsyDB.hmm HMM2.hmm
-'''
+```
 
 Running LTRdigest with these databases
-'''
+```
 $ gt ltrdigest -hmms HMM*.hmm -outfileprefix TDIV-ltrs sorted_pred-TDIV.gff TDIV.fsa > TDIV-ltrs_ltrdigest.gff3
 
 - Outputed files will be
@@ -109,58 +109,60 @@ TDIV-ltrs_5ltr.fas
 TDIV-ltrs_complete.fas 
 
 - Understanding the output
-'
+`
 • protein domains,
 • polypurine tracts (PPT) and 
 • primer binding sites (PBS)
 
 LTRdigest computes the boundaries and attributes of the features that fit the user-supplied model and outputs them in GFF3 format [2] (in addition to the existing LTR retrotransposon annotation), as well as the corresponding sequences in multiple FASTA format. In addition, a tab-separated summary file is created that can conveniently and quickly browsed for results.
 
-No screen output (except possible error messages) is produced since the GFF3 output on stdout is redirected to a file. Additionally, the files mygenome-ltrs conditions.csv, mygenome- -ltrs 3ltr.fas, mygenome-ltrs 5ltr.fas, mygenome-ltrs ppt.fas, mygenome- -ltrs pbs.fas, mygenome-ltrs tabout.csv and one FASTA file for each of the HMM models will be created and updated during the computation. As the files are buffered, it may take a while before first output to these files can be observed.'
-'''
+No screen output (except possible error messages) is produced since the GFF3 output on stdout is redirected to a file. Additionally, the files mygenome-ltrs conditions.csv, mygenome- -ltrs 3ltr.fas, mygenome-ltrs 5ltr.fas, mygenome-ltrs ppt.fas, mygenome- -ltrs pbs.fas, mygenome-ltrs tabout.csv and one FASTA file for each of the HMM models will be created and updated during the computation. As the files are buffered, it may take a while before first output to these files can be observed.`
+```
 
 Then filter the output from LTRDigest to keep only LTRs that matched the database, i.e. LTRs that contain functional elements.
 For this I have written my on scripts 'LTRdigest_parse.py'
 Usage: LTRdigest_parse.py -f <complete.fasta> -g <ltrdigest.gff3> -o <out-index>
-'''
+```
 $ python ../LTRdigest_parse.py -f TDIV-ltrs_complete.fas -g TDIV-ltrs_ltrdigest.gff3 -o TDIV-ltrs_ltrdigest_filtered
-'''
+```
 
 PS: There is a trick with LTRDigest; since we use the off sorted it changed the index of the sequence tags. So for example, seq2574 from LTRharvest is not the same as seq2574 in LTRdigest output. Because of that the input must the fasta generated by LTRdigest ("TDIV-ltrs_complete.fas"), it has the correct repeat_region order number (Parent=repeat_region2994, the number represent the number of the parent fasta read in numeric order)
 
 Finally, use RepeatClassifier to classify the repeats in the right format
-'''
+```
 - First build database
 $ BuildDatabase -name TDIV-ltrs_ltrdigest_filtered -engine ncbi TDIV-ltrs_ltrdigest_filtered.fasta
 
 - Then run the program
 $ RepeatClassifier -engine ncbi -stockholm tdiv-families.stk -consensi TDIV-ltrs_ltrdigest_filtered.fasta
-'''
+```
 
 ### 3- Merge all repeat libraries
 
 Format library fasta files to have one read per line (unbreake line)
-'''
+```
 - RepeatModeler library
 $ awk '/^>/ {printf("\n%s\n",$0);next; } { printf("%s",$0);} END {printf("\n");}' < consensi.fa.classified > RepeatModeler_library_classified.fasta
+
 - TransposonPSI library
 $ awk '/^>/ {printf("\n%s\n",$0);next; } { printf("%s",$0);} END {printf("\n");}' < TDIV.fa.TPSI.allHits.chains.bestPerLocus.fasta.classified > TPSI_library_classified.fasta
+
 - LTRharvest
 $ awk '/^>/ {printf("\n%s\n",$0);next; } { printf("%s",$0);} END {printf("\n");}' < TDIV-ltrs_ltrdigest_filtered.fasta.classified > ltrharvest_library_classified.fasta
-'''
+```
 
 Merge the three libraries
-'''
+```
 $ cat RepeatModeler_library_classified.fasta  TPSI_library_classified.fasta ltrharvest_library_classified.fasta > merged.fa
-'''
+```
 
 Remove comments from the fasta file (necessary to run the merging program)
-'''
+```
 $ sed -e 's/>* .*$//' merged.fasta > merged.fa
-'''
+```
 
 Use USEARCH<sup>5</sup> (v 11.0.667) to create a non-redundant library.
-'''
+```
 - sort the sequences by length
 $ usearch -sortbylength merged.fa -fastaout merged.sorted.fa --log usearch.log
 
@@ -169,37 +171,37 @@ $ usearch -cluster_fast merged.sorted.fa --id 0.8 --centroids my_centroids.fa --
 
 - Output of interest
 >> final.nr.consensus.fa 
-'''
+```
 
 Again, use RepeatClassifier to classify the combined repeat library in the right format
-'''
+```
 - Build the database
 $ BuildDatabase -name Tdiversipes_TEs-combined -engine ncbi final.nr.consensus.fa 
 
 - Classify
 $ RepeatClassifier -engine ncbi -stockholm tdiv-families.stk -consensi final.nr.consensus.fa
-'''
+```
 
 
 ### 4- Merge your customized repeat library to other libraries of possible interest already available at RepeatMasker
 
 RepeatMasker contains repeat libraries from other species (mostly model species). You can search this library for certain taxonomic groups to use their repeats if you think that is reaseonable in your case.
 For (*Tetrapedia diversipes*) I have searched for (*Apis*) (honeybee) repeats with:
-'''
+```
 $ RepeatMasker/util/queryRepeatDatabase.pl -species apis -stat
-'''
+```
 
 Then I've combined these repeats with my costume database. The output was my final repeat library.
-'''
+```
 $ /RepeatMasker/util/queryRepeatDatabase.pl -species apis > apis_repeats_filter.fa
 $ cat final.nr.consensus.fa.classified apis_repeats_filter.fa > Tdiversipes_TEs.fasta
-'''
+```
 
 ### 4- Use RepeatMasker with your final library
 Finally get the repetitive elements on your genome based on a search with your costumized library using RepeatMasker<sup>6</sup> (v 4.1.0). 
-'''
+```
 $ RepeatMasker -pa 3 -s -lib Tdiversipes_TEs.fasta -xsmall -gff -html -gccalc TDIV_genome_05_2019.fasta
-'''
+```
 
 ## Repository content
 
