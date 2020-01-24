@@ -121,7 +121,7 @@ No screen output (except possible error messages) is produced since the GFF3 out
 
 Then filter the output from LTRDigest to keep only LTRs that matched the database, i.e. LTRs that contain functional elements.<br/>
 For this I have written my on scripts 'LTRdigest_parse.py'<br/>
-Usage: LTRdigest_parse.py -f <complete.fasta> -g <ltrdigest.gff3> -o <out-index>
+*Usage: LTRdigest_parse.py -f <complete.fasta> -g <ltrdigest.gff3> -o <out-index>*
 ```
 $ python ../LTRdigest_parse.py -f TDIV-ltrs_complete.fas -g TDIV-ltrs_ltrdigest.gff3 -o TDIV-ltrs_ltrdigest_filtered
 ```
