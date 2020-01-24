@@ -54,7 +54,7 @@ $ nohup gt ltrharvest -index TDIV.fsa -v -out pred-TDIV.fsa -outinner pred-inner
 
 ### 2- Improve and format libraries
 
-**TransposonPSI**
+**TransposonPSI**</br>
 First get the repeats in fasta format based on the gff output from TransposonPSI. I have used samtools and bedtools for that.
 ```
 - Generate the reference genome index
@@ -83,7 +83,7 @@ If they are, remove them from your library:
 $ seq -m 50 TDIV.fa.TPSI.allHits.chains.bestPerLocus.fasta.classified > TDIV.fa.TPSI.allHits.chains.bestPerLocus.fasta.classified.filtered
 ```
 
-**LTRharvest**
+**LTRharvest**<br/>
 Use LTRdigest (also included in GenomeTools v 1.5.8) to search the LTRharvest library for functional annotation in the LTRs. It search for similarities with protein HMMs at Pfam databases to make the annotation.
 
 I have used two HMM databses in this step:
