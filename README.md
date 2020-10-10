@@ -197,7 +197,7 @@ $ /RepeatMasker/util/queryRepeatDatabase.pl -species apis > apis_repeats_filter.
 $ cat final.nr.consensus.fa.classified apis_repeats_filter.fa > Tdiversipes_TEs.fasta
 ```
 
-### 4- Use RepeatMasker with your final library
+### 5- Use RepeatMasker with your final library
 Finally get the repetitive elements on your genome based on a search with your costumized library using RepeatMasker<sup>6</sup> (v 4.1.0). 
 ```
 $ RepeatMasker -pa 3 -s -lib Tdiversipes_TEs.fasta -xsmall -gff -html -gccalc TDIV_genome_05_2019.fasta
