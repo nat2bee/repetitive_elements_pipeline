@@ -80,7 +80,7 @@ $ SeqKit_v0.11.0 stats TDIV.fa.TPSI.allHits.chains.bestPerLocus.fasta.classified
 ```
 If they are, remove them from your library:
 ```
-$ seq -m 50 TDIV.fa.TPSI.allHits.chains.bestPerLocus.fasta.classified > TDIV.fa.TPSI.allHits.chains.bestPerLocus.fasta.classified.filtered
+$ SeqKit_v0.11.0 seq -m 50 TDIV.fa.TPSI.allHits.chains.bestPerLocus.fasta.classified > TDIV.fa.TPSI.allHits.chains.bestPerLocus.fasta.classified.filtered
 ```
 
 **LTRharvest**<br/>
