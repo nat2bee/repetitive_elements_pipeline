@@ -54,11 +54,11 @@ except getopt.GetoptError:
 
 for opt, arg in opts:
     if opt == '-h':
-        print '\n', 'Remove LTR candidates without a protein match (filter fro LTRDdigest gff3 output) and returns the filteret gff and a fasta files with the complete LTR', '\n'
-        print 'Usage: LTRdigest_parse.py -f <complete.fasta> -g <ltrdigest.gff3> -o <out-index>', '\n'
-        print 'Where: complete.fasta = the fasta file produced by LTRDigest containing all LTR sequences complete in the same order as the sorted input gff'
-        print 'ltrdigest.gff3 = output from LTRDigest in GFF 3 format'
-        print 'output = Name index for the output fasta and gff files' , '\n'
+        print ('\nRemove LTR candidates without a protein match (filter fro LTRDdigest gff3 output) and returns the filteret gff and a fasta files with the complete LTR\n')
+        print ('Usage: LTRdigest_parse.py -f <complete.fasta> -g <ltrdigest.gff3> -o <out-index>\n')
+        print ('Where: complete.fasta = the fasta file produced by LTRDigest containing all LTR sequences complete in the same order as the sorted input gff')
+        print ('ltrdigest.gff3 = output from LTRDigest in GFF 3 format')
+        print ('output = Name index for the output fasta and gff files\n')
         sys.exit()
     elif opt in ("-f", "--fasta"):
         fasta = open(arg)
@@ -179,6 +179,7 @@ os.remove(outname_temp)
 
 
 ## Useful info
-print "\nThere are in total", count_ltr, "LTRretrotransposon annotated.\n"
+useful_info = "\nThere are in total" + count_ltr + "LTRretrotransposon annotated.\n")
+print ("useful_info)
 
 	
