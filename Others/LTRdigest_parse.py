@@ -138,9 +138,9 @@ for line in gff:
 				
 				## print the gff output, but better because the original has a especial sequence tag and it's cofunsing.
 				# this one will have the original sequence ID (from fast input in LTRHarvest)
-				seq_tag = seq_id.split("_")
+				# seq_tag = seq_id.split("_")
 				better_entry = entry
-				better_entry[0] = seq_tag[0] # update seq name
+				better_entry[0] = seq_id # update seq name
 				better_entry = "\t".join(better_entry)
 				outgff.write(better_entry + "\n")							
 		
@@ -179,7 +179,7 @@ os.remove(outname_temp)
 
 
 ## Useful info
-useful_info = "\nThere are in total" + count_ltr + "LTRretrotransposon annotated.\n")
-print ("useful_info)
+useful_info = "\nThere are in total" + str(count_ltr) + "LTRretrotransposon annotated.\n"
+print (useful_info)
 
 	
