@@ -22,10 +22,9 @@ $ BuildDatabase -name tdiv -engine ncbi TDIV.fa
 - Then run the program
 $ RepeatModeler -engine ncbi -pa 11 -database tdiv >& run2.out
 
-**PS UPDATE** *`-pa` was replaced by `-threads` in the updated version of RepeatModeler*
-
 >> consensi.fa.classified is the final output
 ```
+**PS UPDATE** *`-pa` was replaced by `-threads` in the updated version of RepeatModeler*
 
 **TransposonPSI** searchs the genome for LTR retroelements (e.g. gypsy and copia), non-LTR retroelements (e.g. LINE retrotransposon ORFs), DNA transposons (e.g. cryptons and other families), and helitrons. It used PSI-BLAST to identify proteins enconded by transposable elements, thus it is useful to find degenerate elements.
 
