@@ -129,7 +129,7 @@ Then filter the output from LTRDigest to keep only LTRs that matched the databas
 For this I have written my on scripts 'LTRdigest_parse.py'<br/>
 *Usage: LTRdigest_parse.py -f <complete.fasta> -g <ltrdigest.gff3> -o <out-index>*<br/>
 
-***PS UPDATE** *For the new version of LTRdigest use the updated version of the script (LTRdigest_parse_new.py, also in this repository). The usage is the same but it now runs in python3 instead of python2.*
+**PS UPDATE** *For the new version of LTRdigest use the updated version of the script (LTRdigest_parse_new.py, also in this repository). The usage is the same but it now runs in python3 instead of python2.*
 
 ```
 $ python ../LTRdigest_parse.py -f TDIV-ltrs_complete.fas -g TDIV-ltrs_ltrdigest.gff3 -o TDIV-ltrs_ltrdigest_filtered
@@ -195,6 +195,8 @@ $ RepeatClassifier -engine ncbi -stockholm tdiv-families.stk -consensi final.nr.
 
 
 ### 4- Merge your customized repeat library to other libraries of possible interest already available at RepeatMasker
+
+**PS UPDATE** *For the new version of RepeatMasker this step was ignored because queryRepeatDatabase.pl is not available and famdb.py failed to compile the hymenoptera partition.*
 
 RepeatMasker contains repeat libraries from other species (mostly model species). You can search this library for certain taxonomic groups to use their repeats if you think that is reaseonable in your case.<br/>
 For (*Tetrapedia diversipes*) I have searched for (*Apis*) (honeybee) repeats with:
